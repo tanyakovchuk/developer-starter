@@ -1,63 +1,64 @@
-"use strict";
-(() => {
-  // bin/live-reload.js
-  new EventSource(`${"http://localhost:3000"}/esbuild`).addEventListener("change", () => location.reload());
+/* eslint-disable no-console */
+window.Webflow ||= [];
+window.Webflow.push(() => {
+  console.log('Webflow Hi!');
+  // GrowthBook
+  const script = document.createElement('script');
+  script.id = 'growthbook-sdk';
+  script.src = 'https://cdn.jsdelivr.net/npm/@growthbook/growthbook/dist/bundles/index.min.js';
+  script.defer = true;
 
-  // src/index.js
-  window.Webflow ||= [];
-  window.Webflow.push(() => {
-    console.log("Webflow Hi!");
-    const script = document.createElement("script");
-    script.id = "growthbook-sdk";
-    script.src = "https://cdn.jsdelivr.net/npm/@growthbook/growthbook/dist/bundles/index.min.js";
-    script.defer = true;
-    document.head.appendChild(script);
-    if (window.location.href === "https://paperwriter.com/developer-kit3") {
-      (function() {
-        if (window.growthbook) {
-          startGrowthbook();
-        } else {
-          document.querySelector("#growthbook-sdk").addEventListener("load", startGrowthbook);
-        }
-        function startGrowthbook() {
-          function getOrCreateGUID() {
-            const localStorageKey = "myGUID";
-            let guid = localStorage.getItem(localStorageKey) || self.crypto.randomUUID();
-            if (!localStorage.getItem(localStorageKey)) {
-              localStorage.setItem(localStorageKey, guid);
-            }
-            return guid;
+  document.head.appendChild(script);
+  if (window.location.href === 'https://paperwriter.com/developer-kit3') {
+    (function () {
+      // Wait for the SDK to load before starting GrowthBook
+      if (window.growthbook) {
+        startGrowthbook();
+      } else {
+        document.querySelector('#growthbook-sdk').addEventListener('load', startGrowthbook);
+      }
+
+      function startGrowthbook() {
+        function getOrCreateGUID() {
+          const localStorageKey = 'myGUID';
+          let guid = localStorage.getItem(localStorageKey) || self.crypto.randomUUID();
+          if (!localStorage.getItem(localStorageKey)) {
+            localStorage.setItem(localStorageKey, guid);
           }
-          if (!window.growthbook)
-            return;
-          var gb = new growthbook.GrowthBook({
-            apiHost: "https://cdn.growthbook.io",
-            clientKey: "sdk-3bbL9MHGbXj16H",
-            enableDevMode: true,
-            attributes: {
-              id: getOrCreateGUID()
-            },
-            trackingCallback: function(experiment, result) {
-              var userId = getOrCreateGUID();
-              dataLayer.push({
-                event: "experiment_id",
-                experiment_id: experiment.key + ":" + result.key
-              });
-              console.log("Experiment Viewed", {
-                experimentId: experiment.key,
-                variationId: result.key
-              });
-            }
-          });
-          gb.loadFeatures().then(function() {
-            const navElement = document.querySelector(".nav");
-            if (gb.isOn("pop-up_test")) {
-              navElement.insertAdjacentHTML("afterend", htmlA);
-            } else {
-              navElement.insertAdjacentHTML("afterend", htmlB);
-            }
-          });
-          const htmlA = ` <header id="header" class="header">
+          return guid;
+        }
+        if (!window.growthbook) return;
+        var gb = new growthbook.GrowthBook({
+          apiHost: 'https://cdn.growthbook.io',
+          clientKey: 'sdk-3bbL9MHGbXj16H',
+          enableDevMode: true,
+          attributes: {
+            id: getOrCreateGUID(),
+          },
+          trackingCallback: function (experiment, result) {
+            var userId = getOrCreateGUID();
+            dataLayer.push({
+              event: 'experiment_id',
+              experiment_id: experiment.key + ':' + result.key,
+            });
+            console.log('Experiment Viewed', {
+              experimentId: experiment.key,
+              variationId: result.key,
+            });
+          },
+        });
+
+        gb.loadFeatures().then(function () {
+          // 2-way test using a boolean feature flag
+          const navElement = document.querySelector('.nav');
+          if (gb.isOn('pop-up_test')) {
+            // Вставляємо HTML розмітку після елементу з класом "nav"
+            navElement.insertAdjacentHTML('afterend', htmlA);
+          } else {
+            navElement.insertAdjacentHTML('afterend', htmlB);
+          }
+        });
+        const htmlA = ` <header id="header" class="header">
         <div class="container w-container">
             <div class="hero">
                 <div class="hero__column">
@@ -189,7 +190,7 @@
                                                 </div>
                                                 <div>
                                                     <div class="writer-slider__features-name">Degree:</div>
-                                                    <div class="writer-slider__features-number">Bachelor\u2019s</div>
+                                                    <div class="writer-slider__features-number">Bachelor’s</div>
                                                 </div>
                                             </div>
                                             <div class="writer-slider__features-item">
@@ -413,7 +414,7 @@
                                                 </div>
                                                 <div>
                                                     <div class="writer-slider__features-name">Degree:</div>
-                                                    <div class="writer-slider__features-number">Bachelor\u2019s</div>
+                                                    <div class="writer-slider__features-number">Bachelor’s</div>
                                                 </div>
                                             </div>
                                             <div class="writer-slider__features-item">
@@ -1276,7 +1277,7 @@
                                         </div>
                                         <div class="review-slider__topic">Article review</div>
                                     </div>
-                                    <p class="review-slider__description">If you\u2019re like me and you want someone to write papers for you then this service is your best option. Saying this as someone who has had an extensive experience haha</p>
+                                    <p class="review-slider__description">If you’re like me and you want someone to write papers for you then this service is your best option. Saying this as someone who has had an extensive experience haha</p>
                                 </div>
                             </div>
                         </div>
@@ -1692,7 +1693,7 @@
                                     </div>
                                     <p class="work__description">Complete the form. State what kind of paper writing you need. If you &#x27;re short on time, contact our 24/7 support and say something like &quot;write my term papers &quot;.</p>
                                     <div class="work__bot">
-                                        <a href="https://app.paperwriter.com/auth/register" class="btn--green_220 w-button">Let\u2019s get it started</a>
+                                        <a href="https://app.paperwriter.com/auth/register" class="btn--green_220 w-button">Let’s get it started</a>
                                     </div>
                                 </div>
                             </div>
@@ -1711,7 +1712,7 @@
                                     </div>
                                     <p class="work__description">Choose an essay writer among the professional paper writers offered on our website. Text with your potential term paper writer and make sure you &#x27;re on the same page.</p>
                                     <div class="work__bot">
-                                        <a href="https://app.paperwriter.com/auth/register" class="btn--green_220 w-button">Let\u2019s get it started</a>
+                                        <a href="https://app.paperwriter.com/auth/register" class="btn--green_220 w-button">Let’s get it started</a>
                                     </div>
                                 </div>
                             </div>
@@ -1730,7 +1731,7 @@
                                     </div>
                                     <p class="work__description">Get an email from our paper writing service and check the paper. If you &#x27;re satisfied, release the payment, if you aren &#x27;t, ask for free edits.</p>
                                     <div class="work__bot">
-                                        <a href="https://app.paperwriter.com/#/auth/register" class="btn--green_220 w-button">Let\u2019s get it started</a>
+                                        <a href="https://app.paperwriter.com/#/auth/register" class="btn--green_220 w-button">Let’s get it started</a>
                                     </div>
                                 </div>
                             </div>
@@ -1964,7 +1965,7 @@
                             <nav itemtype="https://schema.org/Answer" itemscope="itemscope" itemprop="acceptedAnswer" class="faq__answer w-dropdown-list">
                                 <div itemprop="text" class="faq__description w-richtext">
                                     <p>Yes, we can. All you have to do in order to get a free originality report is to request it along with your research papers writing help. Let the writer know that you want to see the originality report and you will get it in no time. Be confident in the work that you receive from our service when you ask us to write my paper. We are not here to trick you or to plagiarise someone else &#x27;s work and call in our own, we are here to aid in your academic studies and lessen your stress.</p>
-                                    <p>\u200D</p>
+                                    <p>‍</p>
                                 </div>
                             </nav>
                         </div>
@@ -2126,9 +2127,9 @@
                                     <h3 class="seo__title">How To Select The Deadline For My Essay Writer?</h3>
                                 </div>
                                 <div class="seo__description w-richtext">
-                                    <p>Instead of picking a certain day for your \u201Cwrite paper for me\u201D request, we suggest you consider the two possible dates for deadlines in order to avoid last-minute stress and make sure that the outcome of your &quot;do my paper for me &quot;order meets all requirements. The first one is the paper submission date, which is definitely an important one. </p>
+                                    <p>Instead of picking a certain day for your “write paper for me” request, we suggest you consider the two possible dates for deadlines in order to avoid last-minute stress and make sure that the outcome of your &quot;do my paper for me &quot;order meets all requirements. The first one is the paper submission date, which is definitely an important one. </p>
                                     <p>The second date is the deadline you give the term paper writers, which is actually a few days earlier than the final deadline. This results in a situation where everyone knows how much time remains to check a paper and make revisions before submitting it. This way, we can give our customers time to review their papers and submit flawless work on time.</p>
-                                    <p>When it comes to the pricing, the further the completion date you choose, the lower the price for your &quot;write my research papers &quot;order page will be. Moreover, as a student, you may need several papers to be written by professionals for you. To save your time and money, we advise ordering all the upcoming papers at once. We\u2019ll make sure that all your orders are delivered quickly and efficiently.</p>
+                                    <p>When it comes to the pricing, the further the completion date you choose, the lower the price for your &quot;write my research papers &quot;order page will be. Moreover, as a student, you may need several papers to be written by professionals for you. To save your time and money, we advise ordering all the upcoming papers at once. We’ll make sure that all your orders are delivered quickly and efficiently.</p>
                                 </div>
                             </div>
                             <div class="seo__item">
@@ -2141,15 +2142,15 @@
                                     <h3 class="seo__title">Reliable Essay Writer Service</h3>
                                 </div>
                                 <div class="seo__description w-richtext">
-                                    <p>The writing process is not a simple one, so you can trust our paper writing service to deliver high-caliber papers. Our term paper writing service is a far cry from the run-of-the-mill online service providers. Our unique composition and grammar techniques showcase our commitment to quality, while our experienced team of experts boasts an impressive track record of delivering \u201Cwrite a paper for me\u201D orders on time. We provide written compositions from scratch to be 100% plagiarism-free, using unique and targeted paper styles, sentences, and powerful language.</p>
-                                    <p>Having your college papers written by a professional essay writer shows that you are serious about your future while saving you hours of time. Regardless of your academic level, our essay writers for hire are on hand to help you with the toughest of assignments. All of our customers agree that our service lives up to the hype! Not only do we provide high-quality custom papers and essays, but we also have a dedicated customer service team that excels at communication. We are always focused on keeping you updated. If you have any questions regarding our service or ordering process, feel free to contact us; we\u2019d be glad to help!</p>
+                                    <p>The writing process is not a simple one, so you can trust our paper writing service to deliver high-caliber papers. Our term paper writing service is a far cry from the run-of-the-mill online service providers. Our unique composition and grammar techniques showcase our commitment to quality, while our experienced team of experts boasts an impressive track record of delivering “write a paper for me” orders on time. We provide written compositions from scratch to be 100% plagiarism-free, using unique and targeted paper styles, sentences, and powerful language.</p>
+                                    <p>Having your college papers written by a professional essay writer shows that you are serious about your future while saving you hours of time. Regardless of your academic level, our essay writers for hire are on hand to help you with the toughest of assignments. All of our customers agree that our service lives up to the hype! Not only do we provide high-quality custom papers and essays, but we also have a dedicated customer service team that excels at communication. We are always focused on keeping you updated. If you have any questions regarding our service or ordering process, feel free to contact us; we’d be glad to help!</p>
                                 </div>
                                 <div class="table w-embed">
                                     <table style="width: 100%;">
                                         <tbody style="width: 100%;">
                                             <tr class="seo-grid">
                                                 <td class="seo-grid__item">
-                                                    <p class="seo-grid__item--bold">\u{1F3C6} Skilled professionals</p>
+                                                    <p class="seo-grid__item--bold">🏆 Skilled professionals</p>
                                                 </td>
                                                 <td class="seo-grid__item">
                                                     <p>Top-notch writers</p>
@@ -2157,7 +2158,7 @@
                                             </tr>
                                             <tr class="seo-grid">
                                                 <td class="seo-grid__item">
-                                                    <p class="seo-grid__item--bold">\u2714\uFE0F Plagiarism-free content</p>
+                                                    <p class="seo-grid__item--bold">✔️ Plagiarism-free content</p>
                                                 </td>
                                                 <td class="seo-grid__item">
                                                     <p>Original essays</p>
@@ -2165,7 +2166,7 @@
                                             </tr>
                                             <tr class="seo-grid">
                                                 <td class="seo-grid__item">
-                                                    <p class="seo-grid__item--bold">\u{1F4B0} Reasonable rates</p>
+                                                    <p class="seo-grid__item--bold">💰 Reasonable rates</p>
                                                 </td>
                                                 <td class="seo-grid__item">
                                                     <p>Return guarantee</p>
@@ -2173,7 +2174,7 @@
                                             </tr>
                                             <tr class="seo-grid">
                                                 <td class="seo-grid__item">
-                                                    <p class="seo-grid__item--bold">\u270D Various subjects</p>
+                                                    <p class="seo-grid__item--bold">✍ Various subjects</p>
                                                 </td>
                                                 <td class="seo-grid__item">
                                                     <p>Extensive essay variety</p>
@@ -2181,7 +2182,7 @@
                                             </tr>
                                             <tr class="seo-grid">
                                                 <td class="seo-grid__item">
-                                                    <p class="seo-grid__item--bold">\u23F0 Prompt completion</p>
+                                                    <p class="seo-grid__item--bold">⏰ Prompt completion</p>
                                                 </td>
                                                 <td class="seo-grid__item">
                                                     <p>Strong adherence to deadlines</p>
@@ -2189,7 +2190,7 @@
                                             </tr>
                                             <tr class="seo-grid">
                                                 <td class="seo-grid__item">
-                                                    <p class="seo-grid__item--bold">\u2714\uFE0F Tailored approach</p>
+                                                    <p class="seo-grid__item--bold">✔️ Tailored approach</p>
                                                 </td>
                                                 <td class="seo-grid__item">
                                                     <p>24/7 assistance</p>
@@ -2209,7 +2210,7 @@
                                     <h3 class="seo__title">Can I Trust Your Research Paper Writing Service With Following The Deadlines?</h3>
                                 </div>
                                 <div class="seo__description w-richtext">
-                                    <p>Every time you place your \u201Cdo my paper\u201D order for a writing service, you need to look for a company that promises timely delivery. A lot of students miss deadlines in college simply because they cannot get their papers when they are needed. If you do not turn it in, then you will end up with a failing grade. The only thing that can save you is the research paper writers for hire.</p>
+                                    <p>Every time you place your “do my paper” order for a writing service, you need to look for a company that promises timely delivery. A lot of students miss deadlines in college simply because they cannot get their papers when they are needed. If you do not turn it in, then you will end up with a failing grade. The only thing that can save you is the research paper writers for hire.</p>
                                     <p>It has been a while since we have not missed a deadline, and we want to keep that record going. We also promise that your paper will be 100 percent original and custom written according to your exact instructions. We do not offer pre-written content, nor do we tolerate any type of plagiarism. Every time you order from us, you receive a completely original paper written by professional research paper writers.</p>
                                     <p>Just because we offer high-quality research paper writing services does not mean we cannot provide you with a free quote. In fact, we want to give you the best price possible because this means that there is a greater chance of building a long-term relationship with us. You will already know what the price will be before your research paper writer begins working, so there are no surprises along the way.</p>
                                 </div>
@@ -2260,7 +2261,7 @@
             </div>
         </section>
     </main>`;
-          const htmlB = ` <header id="header" class="header">
+        const htmlB = ` <header id="header" class="header">
     <div class="container w-container">
         <div class="hero">
             <div class="hero__column">
@@ -2392,7 +2393,7 @@
                                             </div>
                                             <div>
                                                 <div class="writer-slider__features-name">Degree:</div>
-                                                <div class="writer-slider__features-number">Bachelor\u2019s</div>
+                                                <div class="writer-slider__features-number">Bachelor’s</div>
                                             </div>
                                         </div>
                                         <div class="writer-slider__features-item">
@@ -3479,7 +3480,7 @@
                                     </div>
                                     <div class="review-slider__topic">Article review</div>
                                 </div>
-                                <p class="review-slider__description">If you\u2019re like me and you want someone to write papers for you then this service is your best option. Saying this as someone who has had an extensive experience haha</p>
+                                <p class="review-slider__description">If you’re like me and you want someone to write papers for you then this service is your best option. Saying this as someone who has had an extensive experience haha</p>
                             </div>
                         </div>
                     </div>
@@ -3895,7 +3896,7 @@
                                 </div>
                                 <p class="work__description">Complete the form. State what kind of paper writing you need. If you &#x27;re short on time, contact our 24/7 support and say something like &quot;write my term papers &quot;.</p>
                                 <div class="work__bot">
-                                    <a href="https://app.paperwriter.com/auth/register" class="btn--green_220 w-button">Let\u2019s get it started</a>
+                                    <a href="https://app.paperwriter.com/auth/register" class="btn--green_220 w-button">Let’s get it started</a>
                                 </div>
                             </div>
                         </div>
@@ -3914,7 +3915,7 @@
                                 </div>
                                 <p class="work__description">Choose an essay writer among the professional paper writers offered on our website. Text with your potential term paper writer and make sure you &#x27;re on the same page.</p>
                                 <div class="work__bot">
-                                    <a href="https://app.paperwriter.com/auth/register" class="btn--green_220 w-button">Let\u2019s get it started</a>
+                                    <a href="https://app.paperwriter.com/auth/register" class="btn--green_220 w-button">Let’s get it started</a>
                                 </div>
                             </div>
                         </div>
@@ -3933,7 +3934,7 @@
                                 </div>
                                 <p class="work__description">Get an email from our paper writing service and check the paper. If you &#x27;re satisfied, release the payment, if you aren &#x27;t, ask for free edits.</p>
                                 <div class="work__bot">
-                                    <a href="https://app.paperwriter.com/#/auth/register" class="btn--green_220 w-button">Let\u2019s get it started</a>
+                                    <a href="https://app.paperwriter.com/#/auth/register" class="btn--green_220 w-button">Let’s get it started</a>
                                 </div>
                             </div>
                         </div>
@@ -4167,7 +4168,7 @@
                         <nav itemtype="https://schema.org/Answer" itemscope="itemscope" itemprop="acceptedAnswer" class="faq__answer w-dropdown-list">
                             <div itemprop="text" class="faq__description w-richtext">
                                 <p>Yes, we can. All you have to do in order to get a free originality report is to request it along with your research papers writing help. Let the writer know that you want to see the originality report and you will get it in no time. Be confident in the work that you receive from our service when you ask us to write my paper. We are not here to trick you or to plagiarise someone else &#x27;s work and call in our own, we are here to aid in your academic studies and lessen your stress.</p>
-                                <p>\u200D</p>
+                                <p>‍</p>
                             </div>
                         </nav>
                     </div>
@@ -4329,9 +4330,9 @@
                                 <h3 class="seo__title">How To Select The Deadline For My Essay Writer?</h3>
                             </div>
                             <div class="seo__description w-richtext">
-                                <p>Instead of picking a certain day for your \u201Cwrite paper for me\u201D request, we suggest you consider the two possible dates for deadlines in order to avoid last-minute stress and make sure that the outcome of your &quot;do my paper for me &quot;order meets all requirements. The first one is the paper submission date, which is definitely an important one. </p>
+                                <p>Instead of picking a certain day for your “write paper for me” request, we suggest you consider the two possible dates for deadlines in order to avoid last-minute stress and make sure that the outcome of your &quot;do my paper for me &quot;order meets all requirements. The first one is the paper submission date, which is definitely an important one. </p>
                                 <p>The second date is the deadline you give the term paper writers, which is actually a few days earlier than the final deadline. This results in a situation where everyone knows how much time remains to check a paper and make revisions before submitting it. This way, we can give our customers time to review their papers and submit flawless work on time.</p>
-                                <p>When it comes to the pricing, the further the completion date you choose, the lower the price for your &quot;write my research papers &quot;order page will be. Moreover, as a student, you may need several papers to be written by professionals for you. To save your time and money, we advise ordering all the upcoming papers at once. We\u2019ll make sure that all your orders are delivered quickly and efficiently.</p>
+                                <p>When it comes to the pricing, the further the completion date you choose, the lower the price for your &quot;write my research papers &quot;order page will be. Moreover, as a student, you may need several papers to be written by professionals for you. To save your time and money, we advise ordering all the upcoming papers at once. We’ll make sure that all your orders are delivered quickly and efficiently.</p>
                             </div>
                         </div>
                         <div class="seo__item">
@@ -4344,15 +4345,15 @@
                                 <h3 class="seo__title">Reliable Essay Writer Service</h3>
                             </div>
                             <div class="seo__description w-richtext">
-                                <p>The writing process is not a simple one, so you can trust our paper writing service to deliver high-caliber papers. Our term paper writing service is a far cry from the run-of-the-mill online service providers. Our unique composition and grammar techniques showcase our commitment to quality, while our experienced team of experts boasts an impressive track record of delivering \u201Cwrite a paper for me\u201D orders on time. We provide written compositions from scratch to be 100% plagiarism-free, using unique and targeted paper styles, sentences, and powerful language.</p>
-                                <p>Having your college papers written by a professional essay writer shows that you are serious about your future while saving you hours of time. Regardless of your academic level, our essay writers for hire are on hand to help you with the toughest of assignments. All of our customers agree that our service lives up to the hype! Not only do we provide high-quality custom papers and essays, but we also have a dedicated customer service team that excels at communication. We are always focused on keeping you updated. If you have any questions regarding our service or ordering process, feel free to contact us; we\u2019d be glad to help!</p>
+                                <p>The writing process is not a simple one, so you can trust our paper writing service to deliver high-caliber papers. Our term paper writing service is a far cry from the run-of-the-mill online service providers. Our unique composition and grammar techniques showcase our commitment to quality, while our experienced team of experts boasts an impressive track record of delivering “write a paper for me” orders on time. We provide written compositions from scratch to be 100% plagiarism-free, using unique and targeted paper styles, sentences, and powerful language.</p>
+                                <p>Having your college papers written by a professional essay writer shows that you are serious about your future while saving you hours of time. Regardless of your academic level, our essay writers for hire are on hand to help you with the toughest of assignments. All of our customers agree that our service lives up to the hype! Not only do we provide high-quality custom papers and essays, but we also have a dedicated customer service team that excels at communication. We are always focused on keeping you updated. If you have any questions regarding our service or ordering process, feel free to contact us; we’d be glad to help!</p>
                             </div>
                             <div class="table w-embed">
                                 <table style="width: 100%;">
                                     <tbody style="width: 100%;">
                                         <tr class="seo-grid">
                                             <td class="seo-grid__item">
-                                                <p class="seo-grid__item--bold">\u{1F3C6} Skilled professionals</p>
+                                                <p class="seo-grid__item--bold">🏆 Skilled professionals</p>
                                             </td>
                                             <td class="seo-grid__item">
                                                 <p>Top-notch writers</p>
@@ -4360,7 +4361,7 @@
                                         </tr>
                                         <tr class="seo-grid">
                                             <td class="seo-grid__item">
-                                                <p class="seo-grid__item--bold">\u2714\uFE0F Plagiarism-free content</p>
+                                                <p class="seo-grid__item--bold">✔️ Plagiarism-free content</p>
                                             </td>
                                             <td class="seo-grid__item">
                                                 <p>Original essays</p>
@@ -4368,7 +4369,7 @@
                                         </tr>
                                         <tr class="seo-grid">
                                             <td class="seo-grid__item">
-                                                <p class="seo-grid__item--bold">\u{1F4B0} Reasonable rates</p>
+                                                <p class="seo-grid__item--bold">💰 Reasonable rates</p>
                                             </td>
                                             <td class="seo-grid__item">
                                                 <p>Return guarantee</p>
@@ -4376,7 +4377,7 @@
                                         </tr>
                                         <tr class="seo-grid">
                                             <td class="seo-grid__item">
-                                                <p class="seo-grid__item--bold">\u270D Various subjects</p>
+                                                <p class="seo-grid__item--bold">✍ Various subjects</p>
                                             </td>
                                             <td class="seo-grid__item">
                                                 <p>Extensive essay variety</p>
@@ -4384,7 +4385,7 @@
                                         </tr>
                                         <tr class="seo-grid">
                                             <td class="seo-grid__item">
-                                                <p class="seo-grid__item--bold">\u23F0 Prompt completion</p>
+                                                <p class="seo-grid__item--bold">⏰ Prompt completion</p>
                                             </td>
                                             <td class="seo-grid__item">
                                                 <p>Strong adherence to deadlines</p>
@@ -4392,7 +4393,7 @@
                                         </tr>
                                         <tr class="seo-grid">
                                             <td class="seo-grid__item">
-                                                <p class="seo-grid__item--bold">\u2714\uFE0F Tailored approach</p>
+                                                <p class="seo-grid__item--bold">✔️ Tailored approach</p>
                                             </td>
                                             <td class="seo-grid__item">
                                                 <p>24/7 assistance</p>
@@ -4412,7 +4413,7 @@
                                 <h3 class="seo__title">Can I Trust Your Research Paper Writing Service With Following The Deadlines?</h3>
                             </div>
                             <div class="seo__description w-richtext">
-                                <p>Every time you place your \u201Cdo my paper\u201D order for a writing service, you need to look for a company that promises timely delivery. A lot of students miss deadlines in college simply because they cannot get their papers when they are needed. If you do not turn it in, then you will end up with a failing grade. The only thing that can save you is the research paper writers for hire.</p>
+                                <p>Every time you place your “do my paper” order for a writing service, you need to look for a company that promises timely delivery. A lot of students miss deadlines in college simply because they cannot get their papers when they are needed. If you do not turn it in, then you will end up with a failing grade. The only thing that can save you is the research paper writers for hire.</p>
                                 <p>It has been a while since we have not missed a deadline, and we want to keep that record going. We also promise that your paper will be 100 percent original and custom written according to your exact instructions. We do not offer pre-written content, nor do we tolerate any type of plagiarism. Every time you order from us, you receive a completely original paper written by professional research paper writers.</p>
                                 <p>Just because we offer high-quality research paper writing services does not mean we cannot provide you with a free quote. In fact, we want to give you the best price possible because this means that there is a greater chance of building a long-term relationship with us. You will already know what the price will be before your research paper writer begins working, so there are no surprises along the way.</p>
                             </div>
@@ -4463,9 +4464,7 @@
         </div>
     </section>
 </main>`;
-        }
-      })();
-    }
-  });
-})();
-//# sourceMappingURL=index.js.map
+      }
+    })();
+  }
+});
