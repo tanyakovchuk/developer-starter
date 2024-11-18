@@ -124,6 +124,8 @@ if (targetContainer) {
       width: 100%;
       transition: opacity 1s ease-in-out;
       opacity: 0;
+      overflow: hidden;
+      border-radius: 20px;
     }
 
     @media (min-width: 768px) {
@@ -134,6 +136,18 @@ if (targetContainer) {
 
     .experts-carousel__writer-profile--active {
       opacity: 1;
+    }
+    
+    .experts-carousel__writer-profile::after {
+      content: '';
+      position: absolute;
+      z-index: 1; 
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 102px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.33), transparent);
+      border-radius: 20px;
     }
 
     .experts-carousel__profile-image {
@@ -152,6 +166,7 @@ if (targetContainer) {
       display: flex;
       align-items: center;
       color: white;
+      z-index: 2; 
     }
 
     @media (min-width: 768px) {
@@ -187,7 +202,7 @@ if (targetContainer) {
     @media (min-width: 768px) {
       .experts-carousel__degree-block {
         width: min-content;
-        min-width: 193px;
+        min-width: 200px;
         font-size: 16px;
         transform: translateY(150px);
       }
@@ -218,7 +233,10 @@ if (targetContainer) {
     }
 
     .experts-carousel__degree-block {
-      background-color: #F5F6FD;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: rgba(255, 255, 255, 0.75);
       transition: all 0.7s ease-in-out;
       padding: 16px;
       min-height: 135px;
@@ -228,10 +246,11 @@ if (targetContainer) {
     .experts-carousel__rating-block {
       display: flex;
       align-items: center;
+      justify-content: center;
       font-size: 16px;
       padding: 16px;
       height: 64px;
-      background-color: #F5F6FD;
+      background-color: rgba(255, 255, 255, 0.75);
       transition: all 0.6s ease-in-out;
     }
 
