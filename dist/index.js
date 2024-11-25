@@ -153,13 +153,21 @@
 
     @media (min-width: 768px) {
       .experts-carousel {
-        grid-template-columns: 270px 1fr;
+        grid-template-columns: 1fr 1fr;
         gap: 20px;
         padding-bottom: 0;
-        min-height: 340px;
+        min-height: 320px;
         height: 400px;
+        max-width: 538px;
       }
     }
+
+    @media (min-width: 991px) {
+      .experts-carousel {
+        grid-template-columns: 270px 1fr;
+      }
+    }
+
 
     .experts-carousel__verified-icon {
       position: relative;
@@ -169,7 +177,7 @@
     }
 
     .experts-carousel__verified-img {
-      margin-left: 6px;
+      margin-left: 5px;
       width: 16px;
       height: 16px;
     }
@@ -178,6 +186,7 @@
       .experts-carousel__verified-img {
         width: 35px;
         height: 35px;
+        margin-left: 10px;
       }
     }
 
@@ -185,7 +194,7 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      min-height: 202px;
+      min-height: 180px;
       width: 100%;
       min-width: 168px;
       max-width: 100%;
@@ -205,16 +214,35 @@
       width: 100%;
       transition: opacity 1s ease-in-out;
       opacity: 0;
+      overflow: hidden;
+      border-radius: 20px;
     }
 
     @media (min-width: 768px) {
       .experts-carousel__writer-profile {
-        height: 340px;
+        height: 320px;
       }
     }
 
     .experts-carousel__writer-profile--active {
       opacity: 1;
+    }
+    
+    .experts-carousel__writer-profile::after {
+      content: '';
+      position: absolute;
+      z-index: 1; 
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
+      background: linear-gradient(180deg, rgba(26, 26, 26, 0) 0%, rgba(26, 26, 26, 0.65) 50%, rgba(26, 26, 26, 0.9) 100%);
+      border-radius: 20px;
+    }
+    @media (min-width: 768px) {
+      .experts-carousel__writer-profile::after {
+        height: 140px;
+      }
     }
 
     .experts-carousel__profile-image {
@@ -228,18 +256,19 @@
       font-size: 16px;
       font-weight: 500;
       position: absolute;
-      bottom: 8px;
-      left: 16px;
+      bottom: 15px;
+      left: 15px;
       display: flex;
       align-items: center;
       color: white;
+      z-index: 2; 
     }
 
     @media (min-width: 768px) {
       .experts-carousel__profile-name {
         font-size: 20px;
         bottom: 20px;
-        left: 22px;
+        left: 20px;
       }
     }
 
@@ -253,7 +282,7 @@
     @media (min-width: 768px) {
       .experts-carousel__details-section {
         width: auto;
-        gap: 21px;
+        gap: 15px;
       }
     }
 
@@ -267,24 +296,31 @@
 
     @media (min-width: 768px) {
       .experts-carousel__degree-block {
-        width: min-content;
-        min-width: 193px;
         font-size: 16px;
         transform: translateY(150px);
       }
-
       .experts-carousel__information-block {
-        width: min-content;
-        min-width: 193px;
         font-size: 16px;
         transform: translateY(100px);
       }
-
       .experts-carousel__rating-block {
         height: 78px;
+        font-size: 20px;
+      }
+    }
+
+    @media (min-width: 991px) {
+      .experts-carousel__degree-block {
+        width: min-content;
+        min-width: 200px;
+      }
+      .experts-carousel__information-block {
+        width: min-content;
+        max-width: 248px;
+      }
+      .experts-carousel__rating-block {
         width: min-content;
         min-width: 193px;
-        font-size: 20px;
       }
     }
 
@@ -299,21 +335,30 @@
     }
 
     .experts-carousel__degree-block {
-      background-color: #F5F6FD;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background-color: rgba(255, 255, 255, 0.49);
       transition: all 0.7s ease-in-out;
-      padding: 16px;
-      min-height: 135px;
-      height: 100%;
+      padding: 15px;
+      min-height: 120px;
     }
 
     .experts-carousel__rating-block {
       display: flex;
+      gap: 5px;
       align-items: center;
+      justify-content: center;
       font-size: 16px;
-      padding: 16px;
-      height: 64px;
-      background-color: #F5F6FD;
+      height: 46px;
+      background-color: rgba(255, 255, 255, 0.49);
       transition: all 0.6s ease-in-out;
+    }
+    @media (min-width: 768px) {
+      .experts-carousel__rating-block {
+        gap: 10px;
+        height: 64px;
+      }
     }
 
     .experts-carousel__information-block {
@@ -321,8 +366,8 @@
       width: 100%;
       display: flex;
       justify-content: space-evenly;
-      background-color: #FBF4EB;
-      padding: 14px;
+      background-color: #F3E7FF;
+      padding: 15px;
       position: absolute;
       bottom: 0;
       left: 0;
@@ -341,29 +386,45 @@
         min-height: auto;
         height: auto;
         padding: 20px;
+        gap: 19px;
       }
 
       .experts-carousel__rating-block {
-        height: 70px;
         padding: 20px;
       }
     }
 
     .experts-carousel__degree-text {
-      margin-bottom: 19px;
       color: #4A4A4A;
     }
 
     .experts-carousel__verified-status {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 5px;
+    }
+    @media (min-width: 768px) {
+      .experts-carousel__verified-status {
+        gap: 10px;
+      }
     }
 
-    .experts-carousel__check-icon {
-      height: 20px;
-      width: 20px;
+    .experts-carousel__check-icon, 
+    .experts-carousel__info-check-icon {
+      height: 16px;
+      width: 16px;
     }
+
+
+    @media (min-width: 768px) {
+     .experts-carousel__check-icon,
+     .experts-carousel__info-check-icon {
+        height: 20px !important;
+        width: 20px !important;
+        margin-top: 0px;
+      }
+    }
+
 
     .experts-carousel__verified-text {
       color: #4863D1;
@@ -375,9 +436,15 @@
       gap: 5px;
     }
 
+    @media (min-width: 768px) {
+      .experts-carousel__info-item {
+        gap: 10px;
+      }
+    }
+
     .experts-carousel__info-check-icon {
-      height: 20px;
-      width: 20px;
+      height: 16px;
+      width: 16px;
     }
 
     .experts-carousel__info-text {
@@ -393,7 +460,6 @@
 
     .experts-carousel__rating-text {
       color: #4A4A4A;
-      margin-right: 8px;
     }
 
     @media (min-width: 768px) {
