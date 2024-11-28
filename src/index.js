@@ -3,33 +3,33 @@ window.Webflow ||= [];
 const writers = [
   {
     photo:
-      'https://cdn.prod.website-files.com/5e5d4354e4bb2065e7524459/6732067f6cffc16cce4f048d_Kelly_M.webp',
-    name: 'Kelly M.',
+      'https://cdn.prod.website-files.com/5e5d4354e4bb2065e7524459/674827f1a33984463be8d3a6_Annette_M.webp',
+    name: 'Annette M.',
     degree: 'Master of Business Administration',
+    information: ['No AI usage detected', '99% original content'],
+    rating: '5.0',
+  },
+  {
+    photo:
+      'https://cdn.prod.website-files.com/5e5d4354e4bb2065e7524459/67482851529737f176c516b2_Marie_G.webp',
+    name: 'Marie G.',
+    degree: 'Master of Healthcare and Nursing',
     information: ['No AI usage detected', '99% original content'],
     rating: '4.9',
   },
   {
     photo:
-      'https://cdn.prod.website-files.com/5e5d4354e4bb2065e7524459/6732067edfb3a2baaff29528_Mary_J.webp',
-    name: 'Mary J.',
-    degree: 'Bachelor of Science in Nursing',
+      'https://cdn.prod.website-files.com/5e5d4354e4bb2065e7524459/674828c8fba593c46557c263_Karen_G.webp',
+    name: 'Karen G.',
+    degree: 'Bachelor of English',
     information: ['No AI usage detected', '99% original content'],
     rating: '5.0',
   },
   {
     photo:
-      'https://cdn.prod.website-files.com/5e5d4354e4bb2065e7524459/6732067e79a22c13b8f2c32c_Floyce_M.webp',
-    name: 'Floyce M.',
-    degree: 'Bachelor of Science in Psychology',
-    information: ['No AI usage detected', '99% original content'],
-    rating: '5.0',
-  },
-  {
-    photo:
-      'https://cdn.prod.website-files.com/5e5d4354e4bb2065e7524459/6732067ec0514bb1b0ee12cd_Paul_S.webp',
-    name: 'Paul S.',
-    degree: 'Master of Business Administration',
+      'https://cdn.prod.website-files.com/5e5d4354e4bb2065e7524459/67482930f17cea61a25508b9_Paul_T.webp',
+    name: 'Paul T.',
+    degree: 'Master of Nursing',
     information: ['No AI usage detected', '99% original content'],
     rating: '5.0',
   },
@@ -37,7 +37,7 @@ const writers = [
     photo:
       'https://cdn.prod.website-files.com/5e5d4354e4bb2065e7524459/673206818a585061d6c8cbc4_Noah_W.webp',
     name: 'Noah W.',
-    degree: 'Bachelor of Arts in History',
+    degree: 'Master of Business and management',
     information: ['No AI usage detected', '99% original content'],
     rating: '5.0',
   },
@@ -76,7 +76,6 @@ if (targetContainer) {
         gap: 20px;
         padding-bottom: 0;
         min-height: 320px;
-        height: 400px;
         max-width: 538px;
       }
     }
@@ -194,12 +193,13 @@ if (targetContainer) {
     .experts-carousel__details-section {
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
       width: 100%;
     }
 
     @media (min-width: 768px) {
       .experts-carousel__details-section {
+      justify-content: center;
         width: auto;
         gap: 15px;
       }
@@ -231,7 +231,7 @@ if (targetContainer) {
     @media (min-width: 991px) {
       .experts-carousel__degree-block {
         width: min-content;
-        min-width: 200px;
+        min-width: 215px;
       }
       .experts-carousel__information-block {
         width: min-content;
